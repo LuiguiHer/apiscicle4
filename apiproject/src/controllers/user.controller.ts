@@ -19,11 +19,16 @@ import {
 } from '@loopback/rest';
 import {User} from '../models';
 import {UserRepository} from '../repositories';
+import {service} from '@loopback/core';
+import {AuthService} from '../services';
+import axios from 'axios';
 
 export class UserController {
   constructor(
     @repository(UserRepository)
     public userRepository : UserRepository,
+    @service(AuthService)
+    public servicioAuth: AuthService
   ) {}
 
   @post('/users')
@@ -44,8 +49,55 @@ export class UserController {
     })
     user: Omit<User, 'Id'>,
   ): Promise<User> {
-    return this.userRepository.create(user);
+    /* return this.userRepository.create(user); */
+     //Nuevo
+     let clave = this.servicioAuth.GenerarClave();
+     let claveCifrada = this.servicioAuth.CifrarClave(clave);
+     user.password = claveCifrada;
+     let p = await this.userRepository.create(user);
+    // Notifiamos al usuario por telefono y email 
+         let destino1 = user.phone;
+         let destino2 = user.email;
+     
+        let asunto = 'Registro de usuario en plataforma';
+        let contenido = `Hola, ${user.Name} ${user.lastName} su contraseña en el portal es: ${clave}`
+        axios({
+          method: 'post',
+          url: 'http://localhost:5000/send_sms',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          data: {
+            destino: destino1,
+            contenido: contenido
+          }
+        }).then((data: any) => {
+          console.log(data)
+        }).catch((err: any) => {
+          console.log(err)
+        })
+        axios({
+          method: 'post',
+          url: 'http://localhost:5000/send_email',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          data: {
+            destino: destino2,
+            asunto: asunto,
+            contenido: contenido
+          }
+        }).then((data: any) => {
+          console.log(data)
+        }).catch((err: any) => {
+          console.log(err)})
+        
+    return p;
   }
+
+
 
   @get('/users/count')
   @response(200, {
