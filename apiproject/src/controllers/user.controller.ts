@@ -22,6 +22,8 @@ import {UserRepository} from '../repositories';
 import {service} from '@loopback/core';
 import {AuthService} from '../services';
 import axios from 'axios';
+import {Credentiales} from '../models';
+import { HttpErrors} from '@loopback/rest';
 
 export class UserController {
   constructor(
@@ -30,6 +32,38 @@ export class UserController {
     @service(AuthService)
     public servicioAuth: AuthService
   ) {}
+
+
+   //Servicio de login
+   @post('/login', {
+    responses: {
+      '200': {
+        description: 'Identificación de usuarios'
+      }
+    }
+  })
+  async login(
+    @requestBody() credenciales: Credentiales
+  ) {
+    let p = await this.servicioAuth.IdentificarPersona(credenciales.user, credenciales.password);
+    if (p) {
+      let token = this.servicioAuth.GenerarTokenJWT(p);
+ 
+      return {
+        status: "success",
+        data: {
+          nombre: p.Name,
+          apellidos: p.lastName,
+          correo: p.email,
+          id: p.Id
+        },
+        token: token
+      }
+    } else {
+      throw new HttpErrors[401]("Datos invalidos")
+    }
+  }
+
 
   @post('/users')
   @response(200, {
@@ -199,4 +233,6 @@ export class UserController {
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.userRepository.deleteById(id);
   }
+
+  
 }
