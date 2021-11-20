@@ -1,3 +1,4 @@
+import { authenticate } from '@loopback/authentication';
 import {
   repository,
 } from '@loopback/repository';
@@ -11,6 +12,8 @@ import {
   Route,
 } from '../models';
 import {FlightRepository} from '../repositories';
+
+@authenticate("admin")
 
 export class FlightRouteController {
   constructor(

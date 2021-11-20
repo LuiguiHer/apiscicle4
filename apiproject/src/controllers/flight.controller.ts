@@ -1,3 +1,4 @@
+import { authenticate } from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -19,6 +20,8 @@ import {
 } from '@loopback/rest';
 import {Flight} from '../models';
 import {FlightRepository} from '../repositories';
+
+@authenticate("admin")
 
 export class FlightController {
   constructor(

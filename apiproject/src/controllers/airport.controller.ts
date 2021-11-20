@@ -1,3 +1,4 @@
+import { authenticate } from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -19,6 +20,8 @@ import {
 } from '@loopback/rest';
 import {Airport} from '../models';
 import {AirportRepository} from '../repositories';
+
+@authenticate("admin")
 
 export class AirportController {
   constructor(

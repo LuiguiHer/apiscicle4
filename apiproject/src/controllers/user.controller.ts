@@ -24,6 +24,9 @@ import {AuthService} from '../services';
 import axios from 'axios';
 import {Credentiales} from '../models';
 import { HttpErrors} from '@loopback/rest';
+import { authenticate } from '@loopback/authentication';
+
+@authenticate("admin")
 
 export class UserController {
   constructor(
@@ -35,6 +38,7 @@ export class UserController {
 
 
    //Servicio de login
+   @authenticate.skip()
    @post('/login', {
     responses: {
       '200': {
@@ -64,7 +68,7 @@ export class UserController {
     }
   }
 
-
+  @authenticate.skip()
   @post('/users')
   @response(200, {
     description: 'User model instance',
