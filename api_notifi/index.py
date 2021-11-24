@@ -15,6 +15,7 @@ env = json.loads(f.read())
 @app.route('/test', methods=['GET'])
 def test():
     return "hello world"
+    l
 
 @app.route('/send_sms', methods=['POST'])
 def send_sms():
