@@ -1,0 +1,37 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500&display=swap');
+body{
+    background-color: black;
+}
+.container{
+    background-color: rgb(255, 255, 255);
+    font-family: 'Be Vietnam Pro', sans-serif;
+    display: flex;
+    /* background: url("https://luher.tech/images/flight1.jpg") center center ; */
+    background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.959),
+    rgba(97, 97, 97, 0.24)
+  ),url("https://luher.tech/images/flight1.jpg") center center no-repeat;
+
+    height: 500px;
+    width:78%;
+    align-items: center;
+    
+}
+.text h1{
+    padding: 0 0 0 20px;
+    margin: 0;
+    color: rgb(83, 83, 83);
+}
+
+#destine{
+    color: rgb(75, 13, 175);
+    font-weight: 900;
+    font-size: 80px;
+}
+.espaciador{
+    width: 500px;
+    height: 500px;
+}

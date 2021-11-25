@@ -1,0 +1,13 @@
+nav{
+    background-color: white;
+    padding: 0 30px;
+    height: 80px;
+    box-shadow: none;
+}
+nav ul li a{
+    color: black;
+}
+nav img{
+    margin-left: 60px;
+    width:150px;
+}
