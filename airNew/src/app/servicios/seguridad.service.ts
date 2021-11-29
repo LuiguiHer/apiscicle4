@@ -20,7 +20,7 @@ export class SeguridadService {
   login(correo: string, clave: string): Observable<any> {
     //Hacemos la solicitud al servicio web de login pasandole usuario y clave
     return this.http.post<any>(`${this.url}/login`, {
-      usuario: correo,
+      user: correo,
       password: clave
     }, {
       headers: new HttpHeaders({

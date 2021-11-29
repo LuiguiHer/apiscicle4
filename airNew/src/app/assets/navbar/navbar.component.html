@@ -6,7 +6,10 @@
       <li><a routerLink="/airport/get">Airport</a></li>
       <li><a routerLink="/flight/get">Flight</a></li>
       <li><a routerLink="/route/get">Route</a></li>
-      <li><a routerLink="/security/login">Login</a></li>
+
+
+      <li *ngIf="!activeSession"><a routerLink="/security/login">Login</a></li>
+      <li *ngIf="activeSession"><a routerLink="/security/logout">Logout</a></li>
     </ul>
   </div>
 </nav>
