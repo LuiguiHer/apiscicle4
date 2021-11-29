@@ -13,7 +13,7 @@ const routes: Routes = [
     redirectTo: '/index'
   },
   {
-    path: 'secure',
+    path: 'security',
     loadChildren: () => import('./modulos/seguridad/seguridad.module').then(m => m.SeguridadModule)
   },
   {
