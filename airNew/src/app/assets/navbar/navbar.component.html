@@ -2,13 +2,14 @@
   <div class="nav-wrapper white">
     <a href="#" class="brand-logo ">Logo</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a routerLink="/admin/get">User</a></li>
-      <li><a routerLink="/airport/get">Airport</a></li>
-      <li><a routerLink="/flight/get">Flight</a></li>
-      <li><a routerLink="/route/get">Route</a></li>
+      <li *ngIf="activeSession"><a routerLink="/admin/get">User</a></li>
+      <li *ngIf="activeSession"><a routerLink="/airport/get">Airport</a></li>
+      <li *ngIf="activeSession"><a routerLink="/flight/get">Flight</a></li>
+      <li *ngIf="activeSession"><a routerLink="/route/get">Route</a></li>
 
 
       <li *ngIf="!activeSession"><a routerLink="/security/login">Login</a></li>
+      <li *ngIf="!activeSession"><a routerLink="/admin/create">Sign Up</a></li>
       <li *ngIf="activeSession"><a routerLink="/security/logout">Logout</a></li>
     </ul>
   </div>
