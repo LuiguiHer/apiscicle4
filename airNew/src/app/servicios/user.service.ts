@@ -61,6 +61,7 @@ getWithId(id: string): Observable<UsuarioModelo>{
         "Authorization": `Bearer ${this.token}`
       })
     })
+    
   }
 
 
